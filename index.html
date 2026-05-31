@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meu Sonho</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/dist/embed.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            transition: font-size 0.2s ease;
+        }
+        .transcription-box {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+        /* Classe para destacar o texto quando sincronizado */
+        .highlight {
+            background-color: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding-left: 10px;
+            transition: all 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="bg-primary text-white text-center py-5 mb-4 shadow-sm">
+        <div class="container">
+            <h1 class="display-4 fw-bold">Meu Sonho</h1>
+            <p class="lead mb-0">História de Maria Eliane</p>
+        </div>
+    </header>
+
+    <main class="container mb-5">
+        <div class="row g-4 justify-content-center">
+            
+            <!-- Coluna do Player de Mídia -->
+            <div class="col-lg-8 text-center">
+                <div class="card p-3 shadow-sm bg-white mb-4">
+                    <h5 class="card-title mb-3 text-muted">Player de Áudio / Vídeo</h5>
+                    
+                    <!-- Elemento de mídia (referenciando o arquivo solicitado) -->
+                    <audio id="mediaPlayer" controls class="w-100 mb-3">
+                        <source src="Maria Eliane Final.mp3" type="audio/mp3">
+                        Seu navegador não suporta o elemento de áudio.
+                    </audio>
+
+                    <div class="d-flex flex-wrap gap-2 justify-content-center">
+                        <!-- Botão de Sincronização -->
+                        <button id="btnSync" class="btn btn-warning fw-bold">
+                            <i class="bi bi-arrow-repeat me-2"></i>Sincronizar Mídia com o Texto
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Barra de Acessibilidade -->
+                <div class="d-flex justify-content-end mb-3 gap-2">
+                    <span class="align-self-center me-2 text-muted"><i class="bi bi-universal-access me-1"></i>Acessibilidade:</span>
+                    <button id="btnAumentar" class="btn btn-outline-secondary btn-sm" title="Aumentar texto">
+                        <i class="bi bi-zoom-in"></i> Aumentar
+                    </button>
+                    <button id="btnDiminuir" class="btn btn-outline-secondary btn-sm" title="Diminuir texto">
+                        <i class="bi bi-zoom-out"></i> Diminuir
+                    </button>
+                </div>
+
+                <!-- Caixa do Texto da Transcrição -->
+                <div id="textoTranscrito" class="transcription-box p-4 text-start fs-5 lh-lg border">
+                    <p>"Boa noite, meu nome é Maria Eliane, eu tenho 63 anos, voltei a estudar na minha escola, Gustavo Capanema. Gosto muito. Tem uma das minhas filhas, a caçula, que ela estudou aqui e eu me lembro muito bem. Aqui nessa escola teve uma professora, e não lembro o nome, mas muito marcante, muito marcante na pior fase da minha vida, ela nos ajudou. E assim, e eu sempre quis voltar a estudar. Por que que eu parei de estudar? Eu tinha 16 anos. A minha mãe passou um sufoco muito grande. Trabalhando à noite, se não é enfermeira é o quê? Prostituta. Minha mãe era taxada como prostituta porque trabalhava à noite. E não, minha mãe era lavadora de panela num restaurante. Então o que ela passou ela não queria que eu, como mulher, né, passasse. Então ela me fez casar aos 16 anos. Eu não namorei nem dois anos. Minha mãe fez o meu casamento. Eu era muito agredida. Ele cresceu vendo o pai bater na mãe. Sou catadora de reciclado. Então eu passei muito aperto, mas muito aperto mesmo. Cheguei a passar até fome. O meu sonho é me formar, porque quando eu era criança eu gost... eu falava que eu ia ser psicóloga, porque eu gostava da pronúncia, porque eu consegia falar psicóloga e as minhas amigas não conseguiam."</p>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-light text-center py-3 text-muted border-top mt-auto">
+        <div class="container">
+            <small>Interface desenvolvida com Bootstrap 5</small>
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- JavaScript de Funcionalidades -->
+    <script>
+        // --- ACESSIBILIDADE (Aumentar / Reduzir Texto) ---
+        const elementoTexto = document.getElementById('textoTranscrito');
+        const btnAumentar = document.getElementById('btnAumentar');
+        const btnDiminuir = document.getElementById('btnDiminuir');
+
+        // Pega o tamanho inicial configurado no Bootstrap (fs-5 costuma ser 1.25rem ou ~20px)
+        let tamanhoFonteAtual = 20; 
+
+        btnAumentar.addEventListener('click', () => {
+            if (tamanhoFonteAtual < 36) { // Limite máximo para não quebrar o layout
+                tamanhoFonteAtual += 2;
+                elementoTexto.style.fontSize = tamanhoFonteAtual + 'px';
+            }
+        });
+
+        btnDiminuir.addEventListener('click', () => {
+            if (tamanhoFonteAtual > 14) { // Limite mínimo de leitura
+                tamanhoFonteAtual -= 2;
+                elementoTexto.style.fontSize = tamanhoFonteAtual + 'px';
+            }
+        });
+
+        // --- SINCRONIZAÇÃO (Mídia -> Texto) ---
+        const mediaPlayer = document.getElementById('mediaPlayer');
+        const btnSync = document.getElementById('btnSync');
+
+        btnSync.addEventListener('click', () => {
+            // Reinicia a mídia e rola a tela de forma suave até o texto
+            mediaPlayer.currentTime = 0;
+            mediaPlayer.play();
+            
+            // Adiciona o efeito visual de destaque (highlight) no texto
+            elementoTexto.classList.add('highlight');
+            
+            // Rola a página suavemente até o início do texto
+            elementoTexto.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        });
+
+        // Remove o destaque amarelo visual quando a mídia terminar de tocar
+        mediaPlayer.addEventListener('ended', () => {
+            elementoTexto.classList.remove('highlight');
+        });
+    </script>
+</body>
+</html>
